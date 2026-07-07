@@ -1,10 +1,12 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+// import { colors } from '@/theme/colors';
+// import { Color } from 'react-native/types_generated/Libraries/Animated/AnimatedExports';
+import { Colors } from '@/constants/theme';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function RoleSelectionScreen() {
@@ -21,16 +23,16 @@ export default function RoleSelectionScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: isDark ? '#0D0E11' : '#FFFFFF' }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDark ? Colors.dark.background : Colors.light.background }]}>
       {/* Top Header */}
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={isDark ? '#FFFFFF' : '#1E2022'} />
+          <Ionicons name="arrow-back" size={24} color={isDark ? Colors.dark.text : Colors.light.text} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: isDark ? '#FFFFFF' : '#1E2022' }]}>
+        <Text style={[styles.headerTitle, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
           Choose your{'\n'}experience
         </Text>
-        <Text style={[styles.headerSubtitle, { color: isDark ? '#94A3B8' : '#64748B' }]}>
+        <Text style={[styles.headerSubtitle, { color: isDark ? Colors.dark.sub : Colors.light.sub }]}>
           Select how you want to use FIX
         </Text>
       </View>
@@ -44,11 +46,12 @@ export default function RoleSelectionScreen() {
             styles.roleCard,
             styles.professionalCard,
             { opacity: pressed ? 0.94 : 1.0 },
+            { backgroundColor: isDark ? Colors.dark.card : Colors.light.card }
           ]}
         >
           <View style={styles.cardContent}>
-            <Text style={styles.professionalTitle}>I'm a Professional</Text>
-            <Text style={styles.professionalSubtitle}>
+            <Text style={[styles.professionalTitle, { color: isDark ? Colors.dark.text : Colors.light.text }]}>I'm a Professional</Text>
+            <Text style={[styles.professionalSubtitle, { color: isDark ? Colors.dark.sub : Colors.light.sub }]}>
               Offer your skills and grow your business
             </Text>
             <View style={styles.arrowButtonYellow}>
@@ -68,22 +71,20 @@ export default function RoleSelectionScreen() {
           style={({ pressed }) => [
             styles.roleCard,
             styles.customerCard,
-            {
-              backgroundColor: isDark ? '#161920' : '#F3F4F6',
-              borderColor: isDark ? '#232731' : '#E5E7EB',
-              opacity: pressed ? 0.94 : 1.0,
-            },
+            { opacity: pressed ? 0.94 : 1.0 },
+            { backgroundColor: isDark ? Colors.dark.card : Colors.light.card }
           ]}
         >
           <View style={styles.cardContent}>
-            <Text style={[styles.customerTitle, { color: isDark ? '#FFFFFF' : '#1E2022' }]}>
+            <Text style={[styles.customerTitle, { color: isDark ? Colors.dark.text : Colors.light.text }]}>
               I'm a Customer
             </Text>
-            <Text style={[styles.customerSubtitle, { color: isDark ? '#94A3B8' : '#64748B' }]}>
+            <Text style={[styles.customerSubtitle, { color: isDark ? Colors.dark.sub : Colors.light.sub }]}>
               Find services and shop quality products
             </Text>
-            <View style={[styles.arrowButtonDark, { backgroundColor: isDark ? '#2E3543' : '#1E2022' }]}>
-              <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
+            {/* <View style={[styles.arrowButtonDark, { backgroundColor: isDark ? '#2E3543' : '#1E2022' }]}> */}
+            <View style={styles.arrowButtonYellow}>
+              <Ionicons name="arrow-forward" size={18} color="#000" />
             </View>
           </View>
           <Image
@@ -96,6 +97,13 @@ export default function RoleSelectionScreen() {
     </SafeAreaView>
   );
 }
+
+const roleCardBase = {
+  borderWidth: 2,
+  borderColor: '#FFA000',
+  borderRadius: 16,
+  backgroundColor: '#111317',
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -144,10 +152,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   professionalCard: {
-    backgroundColor: '#111317',
-    borderColor: '#1E2129',
+    ...roleCardBase,
   },
-  customerCard: {},
+  customerCard: {
+    ...roleCardBase,
+  },
   cardContent: {
     flex: 1.2,
     justifyContent: 'center',
@@ -156,6 +165,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   professionalTitle: {
+    maxWidth: '75%',
     fontSize: 22,
     fontWeight: '800',
     color: '#FFFFFF',
@@ -165,17 +175,18 @@ const styles = StyleSheet.create({
     color: '#94A3B8',
     marginTop: 8,
     lineHeight: 18,
-    maxWidth: '85%',
+    maxWidth: '75%',
   },
   customerTitle: {
     fontSize: 22,
     fontWeight: '800',
+    maxWidth: '75%',
   },
   customerSubtitle: {
     fontSize: 13,
     marginTop: 8,
     lineHeight: 18,
-    maxWidth: '85%',
+    maxWidth: '75%',
   },
   arrowButtonYellow: {
     width: 36,
@@ -190,6 +201,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
+    backgroundColor: '#FFA000',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 16,

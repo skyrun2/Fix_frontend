@@ -1,11 +1,11 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Button } from '@/components/ui/button';
 import { HazardStripe } from '@/components/ui/hazard-stripe';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -178,7 +178,8 @@ const styles = StyleSheet.create({
     bottom: -10,
     width: SCREEN_WIDTH * 0.48,
     height: '100%',
-    zIndex: 2,
+    zIndex: 0,
+
   },
   bottomSection: {
     paddingVertical: 10,
